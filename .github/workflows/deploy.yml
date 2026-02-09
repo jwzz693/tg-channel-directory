@@ -115,9 +115,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Google sitemap
+        if: ${{ secrets.SITE_URL }}
         run: |
           curl -sS "https://www.google.com/ping?sitemap=${{ secrets.SITE_URL }}/sitemap.xml" || exit 1
       - name: Ping Bing sitemap
+        if: ${{ secrets.SITE_URL }}
         run: |
           curl -sS "https://www.bing.com/ping?sitemap=${{ secrets.SITE_URL }}/sitemap.xml" || exit 1
       - name: Submit to Baidu
