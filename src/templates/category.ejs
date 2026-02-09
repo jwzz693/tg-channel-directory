@@ -1,0 +1,11 @@
+<section>
+  <h2>分类：<%= name %></h2>
+  <div class="list">
+    <% for (const it of items) { %>
+      <a class="item" href="/channel/<%= encodeURIComponent(it.id) %>.html">
+        <strong><%= it.name %></strong>
+        <span><%= it.description || '' %></span>
+      </a>
+    <% } %>
+  </div>
+</section>
