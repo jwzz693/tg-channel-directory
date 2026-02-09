@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="description" content="Telegram频道导航，分类检索与详情展示" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1><a href="/">Telegram频道导航</a></h1>
+      <form class="search" action="/index.html#search" method="get" onsubmit="return false;">
+        <input id="search-input" type="search" placeholder="搜索频道名称、描述、标签…" />
+        <button id="search-btn">搜索</button>
+      </form>
+    </header>
+    <main class="container">
+      <%= content %>
+      <section id="search-results" class="search-results" style="display:none"></section>
+    </main>
+    <footer class="site-footer">
+      <p>© <%= new Date().getFullYear() %> Telegram频道导航</p>
+    </footer>
+    <script src="https://unpkg.com/fuse.js@6.6.2"></script>
+    <script>
+      const input = document.getElementById('search-input');
+      const btn = document.getElementById('search-btn');
+      const panel = document.getElementById('search-results');
+      let fuse, data;
+      async function loadIndex() {
+        try {
+          const res = await fetch('/search-index.json', { cache: 'no-store' });
+          data = await res.json();
+          fuse = new Fuse(data, {
+            keys: ['name', 'description', 'category', 'tags'],
+            threshold: 0.4,
+          });
+        } catch (e) {
+          console.error('search-index加载失败', e);
+        }
+      }
+      function render(results) {
+        if (!results || results.length === 0) {
+          panel.style.display = 'none';
+          panel.innerHTML = '';
+          return;
+        }
+        panel.style.display = 'block';
+        panel.innerHTML = results
+          .slice(0, 50)
+          .map(r => {
+            const it = r.item || r;
+            return `<a class="result" href="/channel/${it.slug}.html">
+              <strong>${it.name}</strong>
+              <span>${it.description || ''}</span>
+              <em>${it.category || ''}</em>
+            </a>`;
+          })
+          .join('');
+      }
+      btn.addEventListener('click', async () => {
+        if (!fuse) await loadIndex();
+        const q = (input.value || '').trim();
+        if (!q) return render([]);
+        const results = fuse.search(q);
+        render(results);
+        location.hash = 'search';
+      });
+    </script>
+  </body>
+</html>
