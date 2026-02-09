@@ -1,0 +1,32 @@
+[
+  {
+    "id": "tech-news",
+    "name": "科技快讯",
+    "description": "每日精选全球科技新闻与行业洞察",
+    "category": "科技",
+    "link": "https://t.me/technews",
+    "subscribers": 120000,
+    "language": "zh",
+    "tags": ["新闻", "科技", "AI"]
+  },
+  {
+    "id": "deals-cn",
+    "name": "优惠信息速递",
+    "description": "全网优惠实时推送，涵盖数码、生活、出行",
+    "category": "生活",
+    "link": "https://t.me/dealscn",
+    "subscribers": 56000,
+    "language": "zh",
+    "tags": ["优惠", "折扣", "生活"]
+  },
+  {
+    "id": "dev-front-end",
+    "name": "前端开发精选",
+    "description": "前端生态趋势、优秀文章与工具",
+    "category": "编程",
+    "link": "https://t.me/frontend_dev",
+    "subscribers": 32000,
+    "language": "zh",
+    "tags": ["前端", "JavaScript", "CSS"]
+  }
+]
