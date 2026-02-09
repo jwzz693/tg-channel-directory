@@ -1,0 +1,21 @@
+<article class="channel">
+  <header>
+    <h2><%= item.name %></h2>
+    <p class="meta">
+      <span>分类：<%= item.category || '未分类' %></span>
+      <% if (item.language) { %><span>语言：<%= item.language %></span><% } %>
+      <% if (item.subscribers) { %><span>订阅数：<%= item.subscribers %></span><% } %>
+    </p>
+  </header>
+  <p><%= item.description || '' %></p>
+  <p>
+    <a class="primary" href="<%= item.link %>" target="_blank" rel="noopener">打开频道</a>
+  </p>
+  <% if (item.tags && item.tags.length) { %>
+    <ul class="tags">
+      <% for (const t of item.tags) { %>
+        <li>#<%= t %></li>
+      <% } %>
+    </ul>
+  <% } %>
+</article>
