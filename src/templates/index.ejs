@@ -1,0 +1,11 @@
+<section>
+  <h2>频道分类</h2>
+  <div class="grid">
+    <% for (const cat of categories) { %>
+      <a class="card" href="/category/<%= encodeURIComponent(cat.name) %>.html">
+        <h3><%= cat.name %></h3>
+        <p>共 <%= cat.items.length %> 个频道</p>
+      </a>
+    <% } %>
+  </div>
+</section>
